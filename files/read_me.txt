@@ -1,0 +1,1 @@
+This folder use for store attachment data and after sending attached file that would be deleted.

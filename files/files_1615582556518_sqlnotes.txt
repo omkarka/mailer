@@ -1,0 +1,1949 @@
+Database
+
+users        :   scott    tiger
+
+First :  Database must be started.
+
+
+99999999999999999999999999999
+
+number(3)
+
+SQL  :  Stands for Structured Query Language.  It is used to define the structure (create, alter, drop the structure), provides mechanism to manipulate data(INSERT, UPDATE, DELETE), Data Retrieval and Data Sharing between users in the multiple user environment.  SQL is further divided into the following sub-languages :
+
+DDL (data definition language) :  it is used to create / alter / drop structure of a table.
+
+commands :
+
+  create, alter, drop, truncate
+
+CREATE :  Is used to create the structure.
+
+Syntax :
+
+     CREATE TABLE <TABLENAME>(COL1 DATATYPE(SIZE).....);
+
+ALTER :  Is used to modify / edit the structure like adding / dropping / modify a column.
+
+Adding a column  :
+
+sysntax : 
+
+sql> alter table <tablename> add(colname datatype(size));
+
+Dropping a column :  
+
+sql> alter table <tablename> drop(colname);
+
+
+DML (data manipulation language)  :  to manipulate data in the table like INSERT, UPDATE, DELETE
+
+commands :
+
+    INSERT, UPDATE, DELETE, MERGE
+
+  INSERT :  it is used to add a record.
+
+
+INSERT INTO <TABLENAME> VALUES(VALUES....);
+
+INSERT INTO <TABLENAME> (COLUMNLIST) VALUES(...)
+
+EX :
+
+SQL> INSERT INTO EMP(EMPNO,ENAME,HIREDATE,DEPTNO,MGR,SAL,COMM,JOB)VALUES(100,'AAA'....);
+
+
+SQL> INSERT INTO EMP(EMPNO,ENAME,HIREDATE,DEPTNO,MGR,COMM,JOB)VALUES(100,'AAA', SYSDATE,20,2045,3456,'DEV');
+
+     update  :  is used to edit the records or data
+
+UPDATE <TABLENAME> SET COLUMNAME=VALUE, COLUMNNAME=VALUE WHERE COLNAME=VALUE;
+
+
+
+DELETE :  Is used to delete the record.
+
+Deling all records :
+
+sql> delete from <tablname>;
+
+Deleting a particular record :
+
+sql>  delete from <tablename> where columname=value;
+
+
+update and alter  :  update is used to modify or edit the data where as alter is used to modify the structure.
+
+Transaction Control Language (TCL) :  Is used to save or cancel the changes.
+
+Commands :
+
+    COMMIT :  Is used to save changes.
+    ROLLBACK : IS USED TO CANCEL THE CHANGES.
+
+rollback is not applicable for DDL commands.  Rollback is applicable only for DML commands.
+
+
+DRL (Data Retrieval Language) or DQL (Data Query Language)
+
+SELECT :  This command is used to display or fetch or retrieve the data from the table.
+
+
+Q)  Display all records from the table emp.
+a)  select * from emp;
+
+Note :
+
+  * means all columns / fields of all records
+
+Q)  Display designation, employee name, joining date of employee whose name is smith
+
+a>
+
+select job,ename,hiredate from emp where ename='SMITH';
+
+DISTINCT  clause :  is used to display distinct or unique values (non-repeated).
+
+WAQ to display how many deaprtments are there in the emp table.
+
+Q)  Display the details of smith.
+a)
+
+sql> select * from emp where ename='SMITH';
+
+
+Operators in SQL :
+
+
+1)  ARITHMETIC :
+
+     +, -, *, %
+
+     10 + 4 * 3 
+
+     first equal preference : /, *   but whichever is used first gets the priority.
+
+2nd equal preference is : +, - but whichever used first gets the priority
+
+to override the priory use brackets.
+
+
+    (10 + 4) * 3 
+
+
+dual  : It is a system table which is used under the following circumstances :
+
+i)    to perform arithmetic calculations
+
+ex :  select 10 + 3 * 4 from dual;
+
+ii)   to display date and time
+
+ex :  select sysdate from dual;
+
+iii)  for testing
+
+ex :  select upper('welcome to sql') from dual;
+
+
+WAQ to display salary, commission and the monthly gross pay and annual gross pay of all the employees.
+
+
+  10 + 0  = 10
+  10 + null = null
+  null + 10 = null
+  0 + 0  = 0
+
+
+q)  create a table same as emp (same means same structure and same data) .
+
+q) delete all the values from hiredate column
+
+
+q) what is column alias ?
+a) temporary name given to the column heading which is created because of arithmetic expression.  column alias will enable to understand the column name in a readable format.
+
+
+ex :
+
+select empno,ename as "Employee Name",sal + comm as "Total Salary" from emp;
+
+rule :  If the column alias contains more than one work then either enclose in Double Quotation or separate with UnderScore (_).
+
+
+RELATIONAL OPERATORS :
+
+>, <, >=, <=, <> or !=, =
+
+WAQ to display details of those employees who are earning more than or equal to 3000.
+
+
+sql> select * from emp where sal >= 3000;
+
+LOGICAL OPERATORS :  If you want to combine more than one condition.
+
+i)   NOT  (First Priority)
+ii)  AND  (Second Priority)
+iii) OR   (Third Priority)
+
+WAQ to diplay details of those employees other than dept no 10.
+
+sql>select * from emp where not deptno=10;
+
+AND : Both conditions are true then result will displayed.
+
+
+sqlplus scott/tiger@oracle11g
+
+
+SQL OPERATORS :
+
+1) IN :  Is used to compare or match one or more than one value.  = can compare single value.
+
+WAQ to display details of employees of deptno 10,20
+
+select * from emp where deptno in(10,20);
+
+select * from emp where deptno=10 or deptno=20;
+
+2) NOT IN :  Opposite to IN operator.
+
+WAQ to display details of employees of deptno other than 10,20
+
+select * from emp where deptno not in(10,20);
+
+
+3)  BETWEEN :  It is used to match the values in a given range.
+
+WAQ to display details of employees who are earning 1000 to 3000
+
+select * from emp where sal between 1000 and 3000;
+
+
+4) NOT BETWEEN :  Opposite to BETWEEN operator.
+
+WAQ to display details of employees who are earning other 1000 to 3000
+
+select * from emp where sal not between 1000 and 3000;
+
+
+5) LIKE :  It is a wild character search operator.  In case of =, IN exact value must be known for comparison.  But if you know even single character then also searching is possible.  In this operator two special characters are used :
+
+    _ :  is used to match or compare one character.
+
+    % :  is used to match multiple characters.
+
+WAQ to display details of employees whose name starts with S.
+
+SQL> SELECT * FROM EMP WHERE ENAME LIKE 'S%';
+
+SQL> SELECT * FROM EMP WHERE ENAME LIKE '_';
+
+WAQ to display details of employees whose name 
+ENDS with S.
+
+SQL> SELECT * FROM EMP WHERE ENAME LIKE '%S';
+
+WAQ to display details of employees whose name 
+CONSISTS of S.
+
+
+WAQ to display details of employees whose name 
+starts with S but the 3rd character is O.
+
+
+WAQ to display details of employees whose name 
+contains 5 characters.
+
+
+students :
+
+stno  name  m1  m2  m3  total  avg  result  gr
+
+
+update the result  by checking following conditions :
+
+
+if the total is >= 120 then result is pass else result is fail.  
+
+gr :  if the total is > 180 first class
+
+WAQ to display details of employees who joined in the year 81
+
+WAQ to display details of employees who joined in the month DECEMBER
+
+WAQ to display details of employees who joined in the YEAR 81 AND month DECEMBER
+
+
+DATE FORMAT :  DD-MON-YY
+
+NOT LIKE :  Opposite to LIKE operator.
+
+IS NULL :  It is used to search for null values.
+
+ex :  WAQ to display employee details who are not earning commission.
+
+sql> select * from emp where comm=null;
+
+the above query is wrong as null is not a value and right hand side expects value.  Therefore use IS NULL operator like below.
+
+sql> select * from emp where comm is null;
+
+IS NOT NULL :  Opposite to IS NULL.
+
+*********************
+
+CONCATENATION OPERATOR (||) :  Is used to combine one or more column or constant.
+
+	Restricting and Sorting Data
+	----------------------------
+
+
+Restring of data is also called filtering.  Data can be filtered or restricted using WHERE clause.
+Filtering means either displaying or not displaying data depending on a condition and condition is given in the WHERE clause.
+
+Sorting Data :  Arranging data in a proper order either ascending or descending.  The advantage of sorting is searching becomes fast.  Sorting is done with ORDER BY clause.
+
+ORDER BY clause can be given only at the last in the sql statement.
+
+More than one column can be specified in the ORDER BY clause.  Either Column Name or the index of the column can be specified in the ORDER BY clause.
+
+
+clause means which is part of the sql statement.
+
+Q)  what is the complete syntax of SQL STATEMENT ?
+
+SELECT COL1,COL2 | *
+FROM <TABLENAME>
+WHERE COLNAME=VALUE
+GROUP BY <COLNAME>
+HAVING <COLNAME>
+ORDER BY <COLNAME>;
+
+EX :  SELECT * FROM EMP ORDER BY ENAME;
+
+Substitution Variable :  With this values are asked in the runtime and gets substituted in the variable.  Substitution variable are represented with &
+
+Assignment :   
+
+1) create table same as emp but without data.
+2) in the above created table which is empty now copy data from emp table.
+3)  WAQ to display details of employees who are not getting commission
+4) WAQ to display details of employees whose name does not start with S
+
+	************
+
+Function :  It is a predefined code with name which accepts input as parameter, performs action and returns value.  Function reduces the coding part and it provides reusability.
+
+Functions are classified into :
+
+I) BUILT-IN or PREDEFINED (II) USER DEFINED.
+
+BUILT-IN or USER DEFINED are further classified into :
+
+1) single row 2)  group function
+
+the above functions are further classified into :
+
+character()
+number()
+date()
+conversion()
+miscellaneous functions
+
+
+character functions are classified into :
+
+1)  case manipulation functions
+2)  character manipulation functions
+
+Case Manipulation functions :  these function accepts parameter and converts the input into either lower or upper case.
+
+these functions are :
+
+1)  lower()
+2)  upper()
+3)  initcap() :  welcome to sql : Welcome To Sql
+
+
+Note :  Single row functions accepts one value at a time i.e., it operates on single or one row at a time.  Therefore it is called single row function.
+
+In case of group functions, operates on multiple rows at a time.  If it is single row or multiple row value is returned only one.
+
+character manipulation functions :  
+
+ltrim()  :  removing a specific character/s from the left side
+rtrim() : removing a specific character/s from the left side
+trim() : removes the specified character from both sides.
+
+Note :  2nd parameter is optional ie., if you dont pass 2nd parameter then space is removed.
+
+lpad()   :  will prefix a character / s which is accepted as second parameter. It accepts 3 paramters. 1st parameter is column or a string, 2nd parameter is the total length and 3rd parameter is a character which you want to padd on the left side.
+
+ex:  lpad('welcome',10,'*') from dual;
+
+     10 - welcome = 10 - 7 = 3
+      it will prefix 3 stars before welcome.
+
+rpad()   :
+
+substr()  :  it will extract specific number of characters either from left side or from right side.
+
+it will accept 3 parameters. 1st parameter is the column of a table or a string. 2nd parameter is starting position and 3rd parameter is number of characters to extract.  3rd parameter is optional.  If 3rd parameter is not passed then it will extract till the end of string.
+
+ex:  select substr('welcome to sql',1,3) from dual;
+
+output :  wel
+
+index starts from 1 it means starting position is w and it will extract 3 characters from w.
+
+ex:  select substr('welcome to sql',4) from dual;
+
+output :  come to sql
+
+starting position is 4 it means c.  as the 3rd parameter is not specified then it will extract till the end of the string.
+
+
+replace()  :  it will replace the orginal string with the new string.
+
+it can replace a character with character
+it can replace a character with string
+it can replace a string with string
+it can replace a string with character
+
+
+translate()  :  it will replace character by character.
+
+
+instr() :  it is used to find the position of a character within the string.
+
+create a table same as empnew but without data
+
+copy data from empnew to empnew2
+
+number functions :
+
+length()  :  it will return the length of the input
+round()  :  is used to round a number.
+trunc()  :   is used to truncate the number.
+
+abs()    :  returns the absolute value.
+
+mod()    :  returns the remainder.
+
+sqrt()   :  returns the square root of the accepted input.
+
+power()  :  returns the power.
+
+
+
+Date Functions :
+
+months_between(d1,d2) :  accepts two parameters as dates and returns number of months between two given dates.
+
+
+
+add_months(d,n)  : it will add the number of months to the given date in the first parameter and returns the date after adding months
+
+ex:  add_months(sysdate,3)
+
+select add_months(sysdate,3) from dual;
+
+
+in the above example it will add 3 months to the system date.
+
+ex 2)
+
+empcopy  :  retdate 
+
+add 30 years to hiredate and update the retdate
+
+next_day(d,'day') : it returns the date on which the specified day given in the second parameter.
+
+select next_day(sysdate,'day') from dual;
+
+WAQ to display the date on which next monday occurs.
+
+WAQ to display the date on which next to next monday occurs.
+
+
+last_day(d) :  returns the last day of the month
+
+
+conversion functions :  it will convert output from one datatype to other datatype
+
+
+to_char(d / n, 'fmt')  :  it accepts date or number as first parameter and returns the output in character.  first parameter can be a date or number and the second parameter is format in which the output has to be displayed.  format is different for date and number.
+
+when to_char() accepts 1st parameter as date.
+
+1) waq to display date
+2) waq to display time
+3) waq to display date and time
+
+4)  WAQ to display day
+
+s   1
+m   2
+t   3
+w   4
+t   5
+f   6
+s   7
+
+q : QUARTER
+
+Jan	to	march		:	1
+ARP	TO	JUN		:	2
+JUL	TO	SEP		:	3
+OCT	TO	DEC		:	4
+
+
+d	day of the week
+dd	day of the month
+ddd	day of the year
+dddd
+ddddd
+dddddd
+q	quarter of the year
+w	week of the month
+ww	week of the year
+sssss	number of seconds passed since 12 am   
+mon	initial 3 chars of name of the month
+month	complete month name
+
+waq to display details of the employees who joined in the 1st half of the month.
+
+
+waq to display details of the employees who joined on monday and also display the day
+
+waq to display details of the employees and also display the day on which the employees joined.
+
+
+
+to_date()  :  to_date() :  it is used under the following circumstances :
+
+i)  to change oracle's default date format.
+ii) to convert character date to actual date.
+iii)  to enter different date and time.
+
+last_day('5-jun-2015') from dual;
+
+to_char(to_date('5-jun-2015'),'day') from dual;
+
+to_char(to_date('jun-5-2015','mon-dd-yyyy'),'day') from dual;
+
+to_number()  :  is used to convert from character number to pure number.
+
+******************
+
+general  or miscellaneous functions
+	-----------------------------------
+
+
+nvl()  :  null to value.  it can convert null value to a value. It accepts 2 parameters.  1st is a column and 2nd parameter the value.
+
+Assignments :
+
+WAQ to display empno,name,sal,comm and monthly gross salary (salary + commission) and annual gross pay.
+
+   
+
+    10
+    +0
+
+    10
+    +0
+    ---
+
+
+
+extending to above query in the comm column display as "No Commission" wherever there is a null value.
+
+nvl2(expr1, expr2, expr3)  :  nvl() accepts 2 parameters whereas nvl2() accepts 3 parameters.
+
+if the expr1 is not null then it returns expr2. if expr1 is null then it returns expr3.
+
+		payroll
+
+empno   ename   sal   comm   ta   da     hra
+
+100	a	1000	     100  200    300
+101	b	2000  100         300    400
+102     c       3000  100    200         400
+103     d       4000  100    300  300    500
+104     e       5000  100    200  400   
+105     f      
+106     g       1000  200    300  500    700
+107     h             400    600  700    800
+108     i	2000              800    900
+      sal + com + ta + da + hra
+
+     coalesce()
+
+   null
+
+   10
+    +  10 + null  =  null
+
+
+
+decode() :  it is similar to IF-THEN-ELSE conditional statement of any programming language.
+It can accept any number of parameters.  1st parameter is the column on which the condition is based. 2nd parameter is the value, 3rd parameter is the statement... so on and the last parameter is ELSE PART(which contains value).
+
+Note : But the limitation of this function is it is used to display the output but can not be used with any DML statements.  It can be used only with SELECT statement.
+
+Ex :
+
+WAQ to display empno,ename,sal and the revised salary by checking the following conditions :
+
+i)  if the job is president then increase the salary by 30%
+
+ii)  if the job is analyst then increase the salary by 20%
+
+iii)  if the job is manager then increase salary by 10%
+
+iv)  for other employees no increment.
+
+
+
+    30%  :
+
+
+
+salary			Tax Pct
+
+0 -	1,999.99	10%
+2000 - 	3,999.99	20%
+4,000 and above		30%
+
+
+
+
+
+<  1000    Catagory c
+>= 1000  < 2000 b
+>  2000 category a
+
+
+
+
+Group Functions :  It operates on multiple rows to display the aggregate or the summary result.  Summary result is used for analysis.
+
+Following are the group functions :
+
+sum(colname)  :  it accept one parameter and returns the total of the accepted parameter.
+
+This function operates on number datatype.
+
+count(colname) :  accepts 1 parameter as input and returns number of rows / records.
+
+this function can be applied on all datatypes.
+
+min() : accepts 1 parameter as input and returns minimum value.
+
+this function can be applied on number, date datatype.
+
+max() :  accepts 1 parameter as input and returns maximum value.
+
+this function can be applied on number, date datatype.
+
+avg() :  accepts 1 parameter as input and returns average.
+
+this function can be applied on number datatype.
+
+
+
+Note :  these functions are used in commercial applications.
+
+display the salaries of the employees
+
+select sal from emp;
+
+display the total salaries of the employees.
+
+waq to department wise total salaries and display the dept number
+
+    or
+
+waq to display total salaries paid to each department along with deptno
+
+imp note :  
+
+if you come accross the words like wise or each then use the clause GROUP BY.
+
+GROUP BY clause will combine one or more values by creating a group.
+
+Note :  dont apply group by on unique values like name, empno  ... etc as it will not generate meaningful result.  
+
+if you use column in the select query along with the group function then specify all the column in the group by clause.
+
+ex :
+
+select deptno,job,sum(sal) from emp group by
+       deptno,job;
+
+select to_char(hiredate,'month') as "Month",
+   sum(sal) as "Total Salary" from emp
+   group by to_char(hiredate,'month');
+
+
+1980
+1981
+1982
+
+
+count()  :  returns total number of rows / records from the accepted parameter.  it accepts one parameter.
+
+it can operate on any datatype (number, character or date).
+
+i)   WAQ to display total employees.
+ii)  WAQ to display number of employees in      deptno 10
+iii) WAQ to display number of employees in each       deptno along with the deptno
+
+iv)  WAQ to display day wise, month wise, year        wise number of employees joined along           with day, month year in the following           format :
+
+day	month		year		total
+---	-----		----		-----
+ 1	jan		1980		 1
+ 2	jan		1980
+
+ 31     jan		1980     
+
+ 1	feb		1980		
+
+ 28	feb
+
+ 31	dec		1980
+
+  1	jan		1981
+
+WAQ to display number of employees joined in each quarter and also display the quarter.
+
+WAQ to display that deptno in which more than 1 clerk is working and also display the total number of clerks.
+
+following statements are executed or not ?  Explain the reason.
+
+i)    select deptno from emp;
+ii)   select sum(sal) as "total salary" from            emp;
+
+iii)  select deptno,sum(sal) as "total salary"
+        from emp;
+
+iv)   select deptno,sum(sal) as "total salary"         from emp group by deptno;
+
+v)    select max(count(empno)) from emp;
+
+
+HAVING :  HAVING is used to filter the group which are created by GROUP BY clause.
+
+WHERE is used to filter records or rows whereas HAVING is used to filter GROUP or GROUPS
+
+WAQ to display that deptno in which more than 1 clerk is working and also display the deptno
+
+******************************
+
+select columns
+filter the rows    (WHERE)
+create a group	   (GROUP BY)
+filter the group   (HAVING)
+
+avg()  :  accepts one parameter and returns the average.
+
+it operates on NUMBER datatype.
+
+WAQ to display average salary, number of employees in each department along with deptno.
+
+min()  :  accepts one parameter and returns the minimum value
+
+It operates on Number,Character, Date datatype.  There will no meaningfull result by applying on Character datatype.
+
+max() :  accepts one parameter and returns the maximum value
+
+It operates on Number,Character, Date datatype.  There will no meaningfull result by applying on Character datatype.
+
+
+WAQ to display total salaries, total number of employees, minimum salary, maximum salary, average salary of each department and also display deptno.
+
+
+WAQ to display the total number of employees, total number of employees in deptno 10, 20, 30 in the following format :
+
+deptno_10     deptno_20  deptno_30     total
+
+   3		  4	     8		 15
+
+1980
+1981
+1982
+
+min(hiredate)  :  Senior Employees Date
+
+max(hiredate)  :  Junio Employees Date
+
+
+WAQ to display total number of employees joined in each quarter without using 'q' and also display quarter.
+
+WAQ to display total number of employees joined in each year's quarter without using 'q' and also display year and quarter.
+
+hint :  in above queries use :
+
+count()
+to_char()
+ceil()
+
+select trunc(123.98) from dual; 123
+select round(123.98) from dual; 124
+select ceil(123.01) from dual;  124
+select floor(123.98) from dual; 123
+
+WAQ to display total salaries of that deptno of which total salary exceeds 10000 and also display deptno.
+
+sql> select deptno,sum(sal) as "total salaries"
+       from emp group by deptno
+       where sum(sal) > 10000;
+
+
+The above query will not be executed because WHERE clause expects column name and sum(sal) is not a column name and the 2nd reason is WHERE is to filter the row / record whereas HAVING is to filter the group.
+
+
+The correct query is :
+
+sql> select deptno,sum(sal) as "total salaries"
+       from emp group by deptno
+       having sum(sal) > 10000;
+
+
+sql> select deptno,sum(sal) as "total salaries"
+       from emp group by deptno;
+
+With the above query deptno group is created and total salaries is assigned to the created group as :
+
+deptno		total salary
+------		------------
+
+  10		   8000
+  20	           9000
+  30		  12000
+
+
+The above output is not rows / records but are groups.  Therefore use HAVING clause which will filter the GROUP / S.
+
+
+sql> select deptno,sum(sal) as "total salaries"
+       from emp group by deptno
+       HAVING sum(sal) > 10000;
+
+deptno		total salary
+------		------------
+
+  30		  12000
+
+Imp Note :  specify those many columns in the GROUP BY clause which are specified in the select list.
+
+WAQ to display deptno, minimum salary, maximum salary, average salary, number of employees and total salaries of all departments.
+
+Write a query to display number of employees in each quarter along with quarter.
+
+Find out the errors :
+
+i)  select deptno, sum(sal) from emp;
+
+ii) select deptno, sum(sal) from emp group by job;
+
+iii)  select deptno, job, sum(sal) from emp
+         group by deptno;
+
+iv)  select empno,ename,sum(sal) from emp
+          group by empno,ename;
+
+select empno,ename, sal from emp;
+
+
+v)   select max(count(empno)) from emp;
+
+vi)  select deptno,job,sum(sal) from emp
+           group by deptno,job;
+
+vii)  select sum(sal),min(sal),max(sal) from emp
+             group by job;
+
+
+select deptno,sum(sal) from emp;
+           
+
+deptno		total
+
+10		29025
+20
+20
+10
+30
+20
+30
+20
+20
+10
+30
+20
+10
+30
+
+select deptno,sum(sal) from emp group by deptno;
+
+deptno		total
+
+10		10000
+20		80025
+30		11000
+
+
+select deptno, max(sum(sal)) from emp group by deptno;
+
+
+deptno		max
+
+10		11000
+20
+30
+
+
+
+ Retrieving Data from Multiple Tables 
+ ------------------------------------
+
+joins  :  it is a mechanism by which data can be retrieved or fetched from more than 1 table.  Data is not stored in one table but in multiple tables.  By using joins data from multiple tables can be displayed.
+
+types of joins :
+--------------
+
+  INNER JOIN : 
+  ----------
+
+     EQUI JOIN (NATURAL JOIN) : THERE MUST BE A COMMON COLUMN.  ONLY THE RECORDS WITH MATCHING VALUES IN THE JOINING COLUMNS WILL BE DISPLAYED.
+
+     NON-EQUI  :  THERE NEED NOT BE A COMMON COLUMN.  BUT THERE MUST A RELATIONSHIP BETWEEN THE TABLES.  IN THIS TYPE OF JOIN USE BETWEEN OPERATOR.
+
+  OUTER JOIN  :
+  ----------
+  IS USED FOR DISPLAYING RECORDS WITH MATCHING AND ALSO NON-MATCHING VALUES IN THE JOINING COLUMNS.  OUTER JOINS ARE CLASSIFIED INTO :
+   
+   i) LEFT OUTER JOIN :  In this type of join all the records from the LEFT table will be displayed even if there are non-matching values in the RIGHT TABLE of joining column.
+
+   ii) RIGHT OUTER JOIN  :  In this type of join all the records from the RIGHT table will be displayed even if there are non-matching values in the LEFT TABLE of joining column.
+
+   iii) FULL OUTER JOIN  :  In this type of join all the records from the BOTH tables (LEFT and RIGHT) will be displayed even if there are non-matching values in the LEFT and RIGHT TABLE's joining column.
+
+3)  SELF JOIN : 
+    ----------
+
+      It is a type of join where table is joined with itself.
+
+WAQ to display details of employees;
+
+WAQ to display deptno,empno,ename,sal,job,dname,loc of all the employees
+
+
+select emp.deptno,empno,ename,sal,job,dname,loc from emp,dept;
+
+output is wrong.
+
+in the above query output is cartesian product. It means one row of emp table is joined with every row of dept table.
+
+
+OUTER JOIN :
+WAQ to display all the records from emp table and also their corresponding dept details even if there are no depts values existing in the dept table.
+
+
+LEFT OUTER JOIN :
+
+select emp.deptno as "Emp Deptno",empno,ename,sal,job,dept.deptno as "Dept Deptno",dname,loc from
+emp LEFT outer join dept
+on EMP.DEPTNO=DEPT.DEPTNO
+
+Note :
+
+In the above query left table is EMP and the right table is DEPT. If LEFT OUTER JOIN is used then all the records from emp table will be displayed even if there are deptnos existing in the dept table.
+
+
+
+WAQ to display all the records from DEPT table and also their corresponding emp details even if there are no depts values existing in the EMP table.
+
+
+RIGHT OUTER JOIN :
+
+select emp.deptno as "Emp Deptno",empno,ename,sal,job,dept.deptno as "Dept Deptno",dname,loc from
+emp RIGHT outer join dept
+on EMP.DEPTNO=DEPT.DEPTNO
+
+Note :
+
+In the above query left table is EMP and the right table is DEPT. If RIGHT OUTER JOIN is used then all the records from dept table will be displayed even if there are no deptnos existing in the emp table.
+WAQ to display all the records from both tables and also their corresponding details even if there are non-matching values existing in both the tables.
+
+
+FULL OUTER JOIN :
+
+select emp.deptno as "Emp Deptno",empno,ename,sal,job,dept.deptno as "Dept Deptno",dname,loc from
+emp FULL outer join dept
+on EMP.DEPTNO=DEPT.DEPTNO
+
+Note :
+
+In the above query left table is EMP and the right table is DEPT. If FULL OUTER JOIN is used then all the records from dept AND emp table will be displayed even if there are non-matching deptno's existing in the emp and dept table.
+
+
+Natural Join :
+
+select deptno,empno,ename,sal,dname,loc from emp natural join dept;
+
+
+courses :
+
+cname     duration    fees
+  c          1  
+  c++        2
+  sql        1
+  multimedia 3
+
+enquiries
+
+
+cname     duration     name
+
+  c          1         shivram
+  c          2         deepak
+  java       1         afsar
+	DRL  :  Is used to retrieve data from one or more tables depending on any condition ie., if the condition is known or unknown.
+
+INNER 
+
+   NATURAL OR EQUI  :
+
+    EMP AND DEPT
+
+    USER MANAGED :
+
+      SELECT EMP.DEPTNO,EMPNO,
+     ENAME,SAL,JOB,DNAME,LOC FROM EMP,DEPT WHERE EMP.DEPTNO=EMP.DEPTNO;
+
+ORACLE MANAGED :
+
+      SELECT DEPTNO,EMPNO,
+     ENAME,SAL,JOB,DNAME,LOC FROM EMP NATURAL JOIN DEPT;
+
+
+EMP
+DEPT
+SALGRADE
+
+EMP AND DEPT  :  NATURAL JOIN
+EMP AND SALGRADE "  NON-EQUI JOIN
+
+NON-EQUI JOIN :  WHERE THERE IS NO COMMON COLUMN THEN USE THE NON-EQUI JOIN BUT THERE SHOULD BE A RELATIONSHIP BETWEEN THE TABLES.  
+
+IMP NOTE :  BEFORE JOINING FIRST SEE WHETHER THERE IS A RELATIONSHIP BETWEEN THE TABLES OR NOT.
+
+
+EX. OF NON-EQUI JOIN :
+
+WAQ TO DISPLAY DEPTNO,EMPNO,ENAME,SAL,JOB AND GRADE OF ALL THE EMPLOYEES.
+
+
+EX. OF EQUI (NATURAL) JOIN AND NON-EQUI JOIN :
+
+WAQ TO DISPLAY DEPTNO,EMPNO,ENAME,SAL,JOB,DNAME,LOC AND GRADE OF ALL THE EMPLOYEES.
+
+
+
+
+region
+countries
+location
+departments
+employees
+
+
+OUTER JOIN :
+
+LEFT OUTER JOIN   :  IN THIS TYPE OF JOIN ALL THE RECORDS FROM THE LEFT TABLE WILL BE DISPLAYED EVEN IF THERE ARE NON-MATCHING VALUES IN THE RIGHT TABLE.
+
+EX :  WAQ TO DISPLAY ALL RECORDS FROM EMP EVEN IF NO DEPTNOS ARE EXISTING IN DEPT TABLE.
+
+SQL>  SELECT EMP.DEPTNO AS "EMP DEPTNO",EMPNO,ENAME,SAL,JOB,DEPT.DEPTNO AS "DEPT DEPTNO",DNAME,LOC 
+FROM EMP LEFT OUTER JOIN DEPT
+ON (EMP.DEPTNO=DEPT.DEPTNO);
+
+NOTE :  IN OUTER JOIN SELECT THE COMMON COLUMNS COMPULSORIY (LIKE DEPTNO) AS THE VALUES WILL BE DIFFERENT IN BOTH THE COLUMNS.  WHEREAS IN NATURAL JOIN ONLY ONE COMMON COLUMN HAS TO BE SELECTED BECAUSE THE VALUES ARE SAME IN BOTH THE COMMON COLUMNS.
+
+EX :  WAQ TO DISPLAY ALL RECORDS FROM DEPT EVEN IF NO DEPTNOS ARE EXISTING IN EMP TABLE.
+
+SQL>  SELECT EMP.DEPTNO AS "EMP DEPTNO",EMPNO,ENAME,SAL,JOB,DEPT.DEPTNO AS "DEPT DEPTNO",DNAME,LOC 
+FROM EMP RIGHT OUTER JOIN DEPT
+ON (EMP.DEPTNO=DEPT.DEPTNO);
+
+RIGHT OUTER JOIN :  IN THIS TYPE OF JOIN ALL THE RECORDS FROM THE RIGHT TABLE WILL BE DISPLAYED EVEN IF THERE ARE NON-MATCHING VALUES IN THE LEFT TABLE.
+
+FULL OUTER JOIN  :  IN THIS TYPE OF JOIN ALL THE RECORDS FROM LEFT ABD RIGHT TABLES WILL BE DISPLAYED EVEN IF THERE ARE NON-MATCHING VALUES IN THE LEFT OR RIGHT TABLE.
+
+SQL>  SELECT EMP.DEPTNO AS "EMP DEPTNO",EMPNO,ENAME,SAL,JOB,DEPT.DEPTNO AS "DEPT DEPTNO",DNAME,LOC 
+FROM EMP FULL OUTER JOIN DEPT
+ON (EMP.DEPTNO=DEPT.DEPTNO);
+
+
+types of queries :
+
+1)  simple query :  retrieving / fetching data from one table
+
+2)  join query :  retrieving / fetching data from more than one table
+
+3) sub-query :  is used under the following circumstances :
+
+   i) if the conditional records are different from output records
+
+  ii) if the column on which the condition is based is in the other table.
+
+  In other words if any information is missing then write the subquery.
+
+syntax :
+
+   select * |col1,col2 from <tablename> where colname=(select colname from <tablename> where colname=value) where colname=value;
+
+subquery is nested select statment or query inside a query.
+
+How the subquery is executed :
+
+first inner query is executed and finds the missing information as input and passes the input to the outer query.  By getting in the input from the inner query the outer query is executed.
+
+1) WAQ to display details of employees;
+2) WAQ to display details of employees who are working in deptno 10;
+3) WAQ to display details of employees who are working in deptno 10 and also display dept details.
+
+select emp.deptno,empno,ename,sal,job,dname,loc from emp,dept where emp.deptno=dept.deptno and 
+emp.deptno=10;
+
+select deptno,empno,ename,sal,job,dname,loc from emp natual join dept and deptno=10;
+
+WAQ to display details of employees who are working as smith.
+
+WAQ to display number of years of service completed along with employee details.
+
+select months_between(sysdate,hiredate)/12 as "years of service",emp.* from emp;
+
+days
+number of weeks
+
+character
+
+
+round
+trunc
+power
+abs
+mod
+sqrt
+length() :  returns number of characters in the accepted input.
+
+waq to display how many times character 'e' occurs in the string 'welcome to sql'
+
+length() and replace()
+
+
+waq to display number of stars in proportion to the salary by checking the following condiondition :
+
+if salary : <= 1000   :   1 star
+
+if salary : <= 2000   :   2 star
+
+2500    :  ***  rpad() or lpad()
+2499    :  **
+800     :  *
+499     :  
+
+sysdate()
+
+months_between()
+
+add_months(d,n) :  accepts 2 parameters. 1st parameter is date and 2nd parameter is number of months which will add to date and returns the date.
+
+WAQ to display date after adding 3 months.
+
+update the emp in the column ret_date (retirement date) with 40 years.
+
+
+next_day(d,'day') : accepts two parameters.
+1st parameter is date and the 2nd parameter is day and returns the date on which the specified day takes place.
+
+WAQ to display the date on which next monday takes place.
+
+select next_day(sysdate,'monday') from dual;
+
+WAQ to display the date on which next to next monday takes place.
+
+delete those employees who have retired.
+
+
+select trunc(months_between(sysdate,hiredate)/12) years,
+           months_between(sysdate,hiredate)-12*trunc(months_between(sysdate,hiredate)/12) months
+
+last_day(sysdate) : returns the last day of the month.
+
+
+conversion functions :
+
+1)  to_char(d,'format') :  accepts date as 1st parameter and returns the output specified in the 2nd parameter in character format. Therefore it is called conversion function
+
+WAQ to display current date.
+
+select sysdate from dual;
+
+WAQ to display current time.
+
+WAQ to display current date and current time.
+
+
+dd
+month
+year
+hours
+minutes
+seconds
+week of the month
+week of the year
+day of the week
+day of month 
+day of year
+
+
+WAQ to display the day on which the employees joined along with employee details.
+
+WAQ to display details of the employees who joined on wednesday
+
+
+to_char(sysdate,'dd-mon-yyyy hh24:mi:ss') 
+
+input : date format 
+output :  18-aug-2015 8:20:00
+
+select to_char(sysdate,'day') from dual;
+
+dd :  day of the month
+mon : first 3 characters of a month (jan, feb...)
+month : complete month name (january, february....)
+yyyy :  year. 2015
+
+hh : hours
+mi :  minutes
+ss :  seconds
+
+d :  day of the week
+
+sun : 1
+mon : 2
+tue : 3
+wed : 4
+thu : 5
+fri : 6
+sat : 7
+
+ddd :  day of the year
+
+w :  week of the month
+ww :  week of the year
+q  :  quarter of the year .
+
+jan	to	march	:	1
+april	to 	jun	:	2
+jul	to	sep	:	3
+oct	to 	dec	:	4
+
+
+sssss :  number of seconds
+
+18th AUGUST, 2015
+
+
+select to_char(sysdate,'ddth MONTH, yyyy') from dual;
+
+eighteenth August, 2015
+
+select to_char(sysdate,'ddspth Month, yyyy') from dual;
+
+assignments :
+
+1) WAQ to display details of employees who    joined in the 1st half of the month
+
+2) WAQ to display employee details and also
+    day on which they joined and arrange data
+    according to daywise starting from monday.
+
+3)  WAQ to display details of employees who      joined on wednesday and also display day
+
+4)  WAQ to display details of employees who      joined on tuesday and also display day
+
+
+to_date() : is used under the following circumstances :
+
+i)   to change oracle default date format.
+
+ex :
+
+sql>  insert into emp(empno,ename,sal,hiredate)       values
+      (1,'aaa',4555,
+       to_date('aug-18-2015','mon-dd-yyyy'));
+
+ii)  to convert character date to pure date
+
+
+
+iii) to enter date and time manually (to enter        other date and time)
+
+q)  assignment :  insert in the hiredate column
+     '12-aug-2015 11:11:11'
+
+q) which is better :  either to insert date with sysdate or entering date manually like '18-aug-2015'
+
+
+select to_char(to_date('18-aug-2015'),'day') from dual;
+
+insert into emp(empno,ename,sal,hiredate)values(100,'abc',4567,'18-aug-2015');
+
+
+
+insert into emp(empno,ename,sal,hiredate)values(100,'abc',4567,'aug-18-2015');
+
+select to_char(sysdate,'day') from dual;
+
+
+
+empno  number
+
+10         
+'10'    implicit conversion 
+'1a'    
+
+empno char(2)
+
+10
+'10'
+'a1'
+
+
+to_number() :  converts character number to pure number.
+
+create table numbers(empno char(2));
+
+4
+2
+1
+3
+9
+7
+8
+14
+12
+13
+19
+17
+18
+16
+15
+22
+21
+24
+23
+
+commit;
+
+sql> select * from numbers order by empno;
+
+output :  wrong because it will sort according to ascii value but not with numerical value.
+
+1
+11
+12
+13
+21
+
+to rectify the above error use to_number().
+
+select * from numbers order by to_number(empno);
+
+
+output : correct because it will sort according to numerical values as we have converted character number to pure number.  It will not sort according to ascii value.
+
+1
+2
+3
+4
+5
+
+
+
+10
+11
+12
+21
+
+		Miscellanous
+                   or
+	          general
+
+
+
+nvl()    :  it accepts 2 parameters. 1st parameter is the column and the 2nd parameter value which will be assigned wherever there is a null value. converts null value value specified in the second parameter.
+
+nvl2(expr1, expr2, expr3)  :  in this if the expr1 is not null then it returns expr2 and if the expr1 is null then it returns expr3
+
+coalesce()  :  nvl() and nvl2() can be used only if there is 1 null value.  but in the table if you are having multiple null values then use coalesce().
+
+WAQ to display empno,ename,sal,comm and gross pay of all the employees.
+
+gross pay = sal + comm
+
+stno    name   m1  m2 m3 m4 m5 m6 tot  avg
+
+  1		   76 78 88 99 76       
+  2            77     87
+  3            
+  4            100 88 88 99 56  66
+
+
+
+decode()
+case
+
+
+nvl(columnname, value)  :  null to value. any value added to null returns null. it accepts 2 parameters. 1st parameter is column name and 2nd parameter is the value which will set wherever there is a null value.
+
+
+
+sal	comm	gross
+
+1000	
+2000	100	2100
+2000	0
+	
+
+nvl2(expr1, expr2, expr3) :  if expr1 is not null then it returns expr2 and if expr1 is null then it returns expr3.
+
+nvl() takes into account only null value whereas nvl2() takes into account not null value also.
+
+sql> select nvl2(comm,sal+comm,sal) 
+       as "gross        pay" from emp;
+
+payroll
+
+sal  comm   ta  da  hra    total
+
+
+
+students1 :
+
+
+stno  name m1  m2    m3     m4   total average
+1
+2	   100       90      89
+3          100   70          78
+4	   100  100  88    
+5	   100               77
+6	    0     0   0      0
+7	    0         100    90
+8	   100  90    80     70
+
+update total and average
+display stno, name, total and average and also marks
+
+students2 :
+
+
+stno  name m1  m2    m3     m4   
+1
+2	   100       90      89
+3          100   70          78
+4	   100  100  88    
+5	   100               77
+6	    0     0   0      0
+7	    0         100    90
+8	   100  90    80     70
+
+display stno,name,m1,m2,m3,m4, total and average.
+
+coalesce(expr1,expr2,expr3,expr4,.....) :
+
+ex:  select coalesce(comm+sal,sal,comm,0) from emp;
+
+
+decode() :  it is similar to IF-THEN-ELSE conditional checking statement of a programming language. decode() can accept n number of parameters. 1st parameter will the column on which the condition is based, 2nd parameter is the condition, 3rd parameter is statement,4th paramter condition, 5th parameter is statement..... and the last parameter is ELSE statement.
+
+decode() is only used to display but cannot be used to UPDATE.
+
+
+WAQ to display empno,ename,salary,job and the revised salary by checking the following conditions :
+
+i)  if the job is PRESIDENT then increase the      salary by 30%.
+
+
+ii)  if the job is ANALYST then increase the         salary by 20%.
+
+
+iii)  if the job is MANAGER then increase the         salary by 10%.
+
+iv)   for the remaining jobs no increase in
+        salary.
+
+
+salary			Tax Pct
+-------                 -------
+
+0 -	1,999.99	10%
+2000 - 	3,999.99	20%
+4,000 and above		30%
+
+
+
+
+Group Function :  It operates on multiple or set of rows and returns one value. Following are the group functions :
+
+sum()  : it accepts one parameter and returns the total.
+
+this function can be applied on number datatype.
+
+
+WAQ to display total salaries paid.
+
+WAQ to display total salaries paid to deptno 10
+
+select sum(sal) as "total salary" from emp where deptno=10;
+
+WAQ to display total salaries paid deptno wise / each dept
+
+select deptno,sum(sal) as "total salary" from emp group by deptno;
+
+deptno      total salary
+10		
+20		
+30		
+
+note :  if you come across the words like wise or each in the query then use GROUP BY clause.
+
+Clause is a part of the sql statment. Following are 
+
+WHERE :  is used to restrict or filter row/s OR            record /s
+GROUP BY : is used to create groups
+ORDER BY :  is used to arrange data in a proper order either ASCENDING or DESCENDING.
+HAVING  :  is used to filter GROUP / S
+
+WAQ to display only that deptno and its total salary only if it exceeding 10000
+
+WAQ to display job wise total salary along with job.
+
+select job,sum(sal) as "total" from emp group by job;
+
+WAQ to display deptno wise, job wise total salary along with deptno and job.
+
+select deptno,job,sum(sal) as "total" from emp group by deptno,job;
+
+
+
+				*********************
+
+WAQ TO DISPLAY DEPARTMENT DETAILS IN WHICH THERE ARE NO EMPLOYEES
+
+WAQ TO DISPLAY DETAILS OF THOSE EMPLOYEES WHO ARE EARNING HIGHEST SALARY IN EACH DEPARTMENT
+
+WAQ TO DISPLAY DETAILS OF THOSE EMPLOYEES WHO ARE EARNING SALARY MORE THAN MAXIMUM SALARY IN DEPTNO 20
+
+SQL> SELECT * FROM EMP WHERE 
+      SAL > (SELECT MAX(SAL) FROM EMP 
+      WHERE DEPTNO=20);
+
+		OR
+
+SQL> SELECT * FROM EMP WHERE 
+      SAL > ALL (SELECT SAL FROM EMP 
+      WHERE DEPTNO=20);
+
+NOTE :
+
+ALL is a operator.  It means more than the maximum.
+
+ANY is a operator.  It means more than the minimum.
+
+WAQ TO DISPLAY DETAILS OF THOSE EMPLOYEES WHO ARE EARNING SALARY MORE THAN MINIMUM SALARY IN DEPTNO 20
+
+SQL> SELECT * FROM EMP WHERE 
+      SAL > (SELECT MIN(SAL) FROM EMP 
+      WHERE DEPTNO=20);
+
+		OR
+
+SQL> SELECT * FROM EMP WHERE 
+      SAL > ANY (SELECT SAL FROM EMP 
+      WHERE DEPTNO=20);
+
+
+WAQ TO DISPLAY DETAILS OF THOSE EMPLOYEES WHO ARE EARNING SALARY MORE THAN MINIMUM SALARY IN DEPTNO 20
+
+
+WAQ TO DISPLAY DETAILS OF THOSE EMPLOYEES WHO ARE EARNING SALARY MORE THAN AVERAGE SALARY OF  DEPTNO 20
+
+Q)
+
+TABLE :  EMP
+
+EMPNO	ENAME	DEPTNO	SALARY
+
+107	A	20	2000
+102	B	10	4000
+104	C	30	1000
+103	D	20	3000
+105	E	10	5000
+101	F	20	7000
+106	G	30	5000
+
+WHAT WILL BE THE OUTPUT IF YOU GIVE THE FOLLOWING QUERY :
+
+SELECT * FROM EMP ORDER BY DEPTNO,SAL DESC;
+
+EMPNO	ENAME	DEPTNO	SALARY
+
+107	E	10	5000
+102	B	10	4000
+
+104	F	20	7000
+103	D	20	3000
+105	A	20	2000
+
+101	G	30	5000
+106	C	30	1000
+
+
+WAQ TO DISPLAY THE YEAR IN WHICH MAXIMUM EMPLOYEES JOINED AND ALSO DISPLAY NUMBER OF EMPLOYEES IN THE FOLLOWING FORMAT :
+
+     YEAR         TOTAL
+     ----         -----
+
+     1981           8
+
+
+WAQ TO DISPLAY DETAILS OF THOSE EMPLOYEES WHO BELONGS TO THAT DEPTNO IN WHICH MAXIMUM EMPLOYEES ARE WORKING.
+
+select * from snemp where deptno=(select deptno from snemp
+group by deptno having count(empno)=(select max(count(empno)) from snemp group by deptno));
+
+Ultimately the query will be :
+
+select * from emp where deptno=30;
+
+but the input 30 was not known therefore we had to write subquery.
+
+
+select * from emp where deptno=(select deptno from emp group by deptno
+having count(empno)=(select max(count(empno)) from emp group by deptno));
+
+
+	Using DDL statements to 
+         Create and Manage tables
+
+data types :
+
+NUMBER :
+
+empno number :  maximum upto 38 digits
+empno number(3) :  maximum upto 999
+sal number(5,2) :  999.99
+
+CHARACTER : 2000 characters
+
+char :  fixed length datatype
+
+acctype char  :  it occupies 1 character
+result char(7)
+
+pass   
+
+varchar :  varilable length datatype. it can store numbers and also characters
+maximum is 4000 characters. it expects size
+
+LONG :  2gb of character data.
+
+CLOB (Character Large Object) :  4gb
+
+date :  default date format dd-mon-yyyy
+
+timestamp :
+
+  i) timestamp
+ ii) interval year to month
+iii) interval day to second
+
+binary or image :
+
+LONG RAW : 2gb of binary data.
+BLOB (Binary Large Object) :  4gb of binary data.
+
+
+DDL :
+
+CREATE, ALTER, DROP, TRUNCATE
+
+Rules of giving name to the table :
+
+i)  table name should start always with        character.
+
+ii) table name should not be oracle key or 
+      reserved word LIKE (select, insert, update...)
+
+iii)  table name should not exceed 30 characters.
+
+iv)  table name should not duplicate any other         table (objectname)
+
+v)  tablename cannot contain spaces if it contains more than one word.  separate the tablename with underscore.
+
+ex :  emp info     :   wrong
+      emp_info     :   correct
+
+vi)  tablename cannot include special characters like :
+
+     @, %, &, *
+
+  but it can include :
+
+       _, $, #
+
+
+CONSTRAINTS :  It means restriction on the user from entering invalid data.  Thefore these constraints are called DATA INTEGRITY CONSTRAINTS.  Following are types of constraints :
+
+i)   PRIMARY KEY :  It will restrict the user from entering null and duplicate values.
+
+ii)  UNIQUE :  It will restrict the user from entering duplicate values
+
+iii)  NOT NULL :  It will restrict the user from entering null values.
+
+PRIMARY KEY = UNIQUE + NOT NULL
+
+iv)  CHECK :  It will validate data against a condition.  If the data violates the condition then the data will be rejected else accepted.
+
+v)  FOREIGN KEY or REFERENCE KEY :  It will check whether the value is available in the parent table.  If the value is not existing then the record is rejected else record is accepted.  
+
+Note :  Primary Key is given on MASTER TABLE and FOREIGN KEY is given on CHILD TABLE.
+
+With constraints data is integrated (ACCURATE and CONSISTENT).  Therefore constraints are also called DATA INTEGRITY CONSTRAINTS.
+
+Create the table by name DEPT_INFO with following attributes / fields / columns with proper constraints :
+
+DEPTNO  :  PRIMARY KEY
+DNAME   :  NOT NULL
+LOCATION :  NOT NULL
+
+system table :  data dictionary
+
+dept_info :  user created
+user_tables :  contains complete information about the user created tables.
+
+user_constraints  :  complete constraints information
+
+Dropping the constraints :
+
+To drop the constraint, name of the constraint must be kwnown then give the following command :
+
+alter table <tablename> drop constraint <constraint_name>;
+Like the table, constraint also must have name.  If the user has not given name then Oracle gives the name.  To find the name and constraint type give the following query :
+
+select constraint_name, constraint_type,search_condition from user_constraints where table_name='DEPT_INFO';
+
+
+
+
+P	:	PRIMARY KEY
+R 	:	REFERENCE or FOREIGN KEY
+C	:	CHECK
+U	:	UNIQUE
+C	:	NOT NULL
+
+
+Constraints can be given either at the time of table creation or after the table is created.
+
+Why to drop the constraint  :  If the user has given wrong constraint then the constraint cannot be modified.  The only way is drop the constraint and add a constraint.
+
+Rules of INSERT, DELETE commands if the tables are related with PRIMARY KEY and FOREIGN KEY :
+
+i)  INSERT FIRST IN THE PARENT TABLE then INSERT in the CHILD TABLE.
+
+Note :  CHILD TABLE is a table which contains a FOREIGN KEY and PARENT TABLE contains a PRIMARY KEY.
+
+ii)  If you want to delete a record then first delete from the child table and then from the parent table.
+
+
+
+adding a primary key and giving name by the user :
+
+sql> alter table dept_info add(constraint dept_info_deptno primary key(deptno));
+
+adding a not null constraint and giving name by the user :
+
+sql> alter table dept_info modify (dname constraint dept_info_dname_non not null);
+
+Note :  Except all constaints not null is added with the key work MODIFY.
+
+EMP_INFO :
+
+EMPNO	PRIMARY KEY
+ENAME   NOT NULL
+SAL     CHECK ( 100 AND 10000)
+COMM   
+JOINDATE  NOT NULL
+DEPTNO  REFERENCE OR FOREIGN KEY
+CREATE TABLE DEPT_INFO(DEPTNO NUMBER CONSTRAINT DEPT_INFO_DEPTNO_PRK PRIMARY KEY,DNAME VARCHAR(20) CONSTRAINT DEPT_INFO_DNAME_NON NOT NULL,
+LOCATION VARCHAR(20) CONSTRAINT DEPT_INFO_LOCATION_NON NOT NULL);
+
+CREATE TABLE EMP_INFO(EMPNO NUMBER CONSTRAINT EMP_INFO_EMPNO_PRK PRIMARY KEY,ENAME VARCHAR(20) CONSTRAINT EMP_INFO_ENAME_NON NOT NULL,
+SAL NUMBER CONSTRAINT EMP_INFO_SAL_CHK CHECK(SAL BETWEEN 100 AND 10000),
+COMM NUMBER, JOINDATE DATE CONSTRAINT EMP_INFO_JOINDATE_NON NOT NULL,
+DEPTNO NUMBER CONSTRAINT EMP_INFO_DEPTNO_FRK REFERENCES DEPT_INFO(DEPTNO));
+
+PARENT TABLE :  WHICH IS REFERRED (WHICH CONTAINS PRIMARY KEY AND REFERRED IN THE CHILD TABLE).
+CHILD TABLE  :  WHICH IS REFERRING (WHICH CONTAINS FOREIGN KEY)
+
+Q)  HOW TO ADD A FOREIGN KEY CONSTARINT AFTER       THE TABLE IS CREATED.
+
+Q)  WHAT IS A DEFAULT key word.
+
+A)
+
+DEFAULT is a option specified along with column specification.  If you specify this option no need to enter value.  It will take the DEFAULT value set for the column.
+
+Q)  TRUNCATE
+A)  TRUNCATE will delete data permanently but      it will not drop the structure.  It contains implicit COMMIT statement.  Difference between DELETE and TRUNCATE is :
+
+i)  DELETE is a DML command and TRUNCATE is a       DDL command.
+
+ii)  Rollback is not applicable for TRUNCATE whereas Rollback can be applied to DELETE.
+
+iii)  TRUNCATE is not allowed for a specified row / rows.  It means WHERE clause cannot be specified for TRUCATE command, the TRUNCATE is applicable for the complete data of a table.  Whereas DELETE can be applied to specific row /rows.  It means WHERE clause can be specified in DELETE statement.
+
+iv)  TRUNCATE will release the space occupied by the rows whereas DELETE will not release the space.
+
+
+Q)  HOW TO RENAME A COLUMN AND HOW TO RENAME
+       TABLE ?
+
+SQL>  alter table EMP rename column SAL to            SALARY;
+
+Q)  HOW TO RENAME A TABLE?
+
+SQL> alter table emp_info rename to       employee_info;
+
+BANK_MASTER
+
+ACNO
+NAME
+ADDRESS
+ACTYPE
+OPDATE
+BALANCE
+
+
+BANK_TRANS
+
+ACNO
+TRAMT
+TRTYPE
+TRDATE
+
+insert data in both tables
+
+100
+101
+102
+
+4 d
+4 w
+
+CREATE TABLE BANK_MASTER(ACNO NUMBER CONSTRAINT BANK_MASTER_ACNO_PRK PRIMARY KEY,
+NAME VARCHAR(20) CONSTRAINT BANK_MASTER_NAME_NON NOT NULL,
+ADDRESS VARCHAR(20) CONSTRAINT BANK_MASTER_ADDRESS_NON NOT NULL,
+ACTYPE CHAR CONSTRAINT BANK_MASTER_ACTYPE_CHK CHECK(ACTYPE IN('S','C')),OPDATE DATE CONSTRAINT BANK_MASTER_OPDATE_NON NOT NULL,BALANCE NUMBER)
+/
+
+CREATE TABLE BANK_TRANS(ACNO NUMBER CONSTRAINT BANK_TRANS_ACNO_FRK REFERENCES BANK_MASTER(ACNO),
+TRTYPE CHAR CONSTRAINT BANK_TRANS_TRTYPE_CHK CHECK(TRTYPE IN('D','W')),TRAMT NUMBER CONSTRAINT BANK_TRANS_TRAMT_CHK CHECK(TRAMT BETWEEN 100 AND 25000),TRDATE DATE CONSTRAINT BANK_TRANS_TRDATE_NON NOT NULL);
+
+
+1) WAQ TO DISPLAY TOTAL AMOUNT OF DEPOSITS,     TOTAL WITHDRAW AMOUNT AND BALANCE IN THE FOLLOWING FORMAT :
+
+TOTAL_DEPOSITS     TOTAL_WITHDRAWAL     BALANCE
+--------------     ----------------     -------
+
+
+2) WAQ TO DISPLAY ACNO WISE TOTAL DEPOSITS, TOTAL WITHDRAWALS AND THE BALANCE IN THE FOLLOWING FORMAT :
+
+TOTAL_DEPOSITS     TOTAL_WITHDRAWAL     BALANCE
+--------------     ----------------     -------
+
+3)  WAQ TO DISPALY TOTAL DEPOSIT TRANSACTIONS, TOTAL WITHDRAWAL TRANSACTIONS AND TOTAL NUMBER OF TRANSACTIONS
+
+4)  WAQ TO DISPALY TOTAL DEPOSIT TRANSACTIONS, TOTAL WITHDRAWAL TRANSACTIONS AND TOTAL NUMBER OF TRANSACTIONS OF EACH ACNO
+
+
+select SUM(decode(TRTYPE,'D',TRAMT)) AS "TOTAL DEPOSITS",SUM(decode(TRTYPE,'W',TRAMT)) AS "TOTAL DEPOSITS",
+SUM(decode(TRTYPE,'D',TRAMT)) - SUM(decode(TRTYPE,'W',TRAMT)) AS "BALANCE" FROM BANK_TRANS
+
+
+select ACNO,SUM(decode(TRTYPE,'D',TRAMT)) AS "TOTAL DEPOSITS",SUM(decode(TRTYPE,'W',TRAMT)) AS "TOTAL DEPOSITS",
+SUM(decode(TRTYPE,'D',TRAMT)) - SUM(decode(TRTYPE,'W',TRAMT)) AS "BALANCE" FROM BANK_TRANS GROUP BY ACNO
+
+
+SELECT CONSTRAINT_NAME,CONSTRAINT_TYPE,SEARCH_CONDITION FROM USER_CONSTRAINTS WHERE
+TABLE_NAME='DEPT_INFO';
+
+CREATE TABLE EMP_INFO(EMPNO NUMBER CONSTRAINT
+EMP_INFO_EMPNO_PRK PRIMARY KEY,ENAME VARCHAR
+(20) CONSTRAINT EMP_INFO_ENAME_NON NOT NULL,
+SAL NUMBER CONSTRAINT EMP_INFO_SAL_CHK CHECK
+(SAL BETWEEN 100 AND 10000),
+COMM NUMBER, JOINDATE DATE CONSTRAINT
+EMP_INFO_JOINDATE_NON NOT NULL,
+DEPTNO NUMBER CONSTRAINT EMP_INFO_DEPTNO_FRK
+REFERENCES DEPT_INFO(DEPTNO));
+
+
+
+		SET OPERATORS
+		=============
+
+By using SET Operators result of one query is added to 2nd query.  Therefore query which includes SET Operators is called a compound query.
+
+Following are the SET Operators :
+
+1) UNION Operator :  It returns rows from both queries after eliminating duplications.
+
+2) UNION ALL Operator :  It returns rows from both queries including all duplications.
+
+3) INTERSECT Operator :  It returns rows that are common to both queries.
+
+4) MINUS Operator :  It returns rows distinct rows selected by the first query but not present in the second query result set.
+
+
+
+
+		Manipulating Data
+		=================
+
+
+
+
+
+Savepoint :  Creates a marker in current transaction.  Rollback to that marker by using ROLLBACK TO SAVEPOINT.
+
+
+select sum(decode(trtype,'D',tramt)) as "Total Deposits",
+sum(decode(trtype,'W',tramt)) as "Total Withdrals",
+sum(decode(trtype,'D',tramt)) - sum(decode(trtype,'W',tramt)) as "Balance" from bank_trans
+
+
+select acno,sum(decode(trtype,'D',tramt)) as "Total Deposits",
+sum(decode(trtype,'W',tramt)) as "Total Withdrals",
+sum(decode(trtype,'D',tramt)) - sum(decode(trtype,'W',tramt)) as "Balance" from bank_trans group by rollup(acno)
+

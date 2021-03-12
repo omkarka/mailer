@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    
+    
+    <title > Send Email using Gmail API</title>
+      
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    />
+    <link rel="stylesheet" href="email.multiple.css"/>
+    <link rel="stylesheet" href="assets/vendor/sweetalert2/dist/sweetalert2.min.css">
+
+
+    
+  </head>
+  <body>
+      <div class="container">
+          <h1 class="text-center">
+            <br>
+            Send Email using Gmail API
+          </h1>
+          <br>
+          <form action="/sendmail" method="POST" enctype="multipart/form-data">
+            <div class="form-group">
+                <input class="form-control" type="text" name="to" required placeholder="To:" >
+            </div>
+            <div class="form-group">
+              <input class="form-control" type="text" name="cc" placeholder="CC:">
+          </div>
+            <div class="form-group">
+                <input type="text" class="form-control" name="subject" placeholder="Subject:" required id="" >
+            </div>
+            <div class="form-group">
+                <textarea class="form-control" name="Body" id="" cols="30" rows="10" placeholder="Body:"></textarea>
+            </div>
+            <label for="attachment">Attachment:</label>
+            <div class="form-group">
+                <input type="file"  class="form-control" name="files" id="">
+            </div>
+            <div class="form-group">
+                
+                <button type="submit" id="btnFetch" class=" btn btn-primary mb-2" > Send Mail</button>
+                                          
+            </div> 
+                   
+        </form>
+      </div>
+      <script src="https://code.jquery.com/jquery-1.12.4.min.js" 
+        integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ" 
+        crossorigin="anonymous">
+</script>
+<script src="jquery.email.multiple.js"></script>
+<script src="https://apis.google.com/js/client.js?onload=handleClientLoad"></script>
+</body>
+  
+</html>
